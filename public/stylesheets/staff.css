@@ -1,0 +1,21 @@
+header{
+	background:#1565C0;
+	color:white;
+	padding: 1em 0 1em 1em;
+	font-family: 'Roboto', sans-serif;
+}
+
+ul{
+	text-align: center;
+}
+
+#content{
+	min-height:350px;
+}
+
+footer{
+	background:#1565C0;
+	color:white;
+	padding: 1em 0 1em 1em;
+	font-family: 'Roboto', sans-serif;
+}
