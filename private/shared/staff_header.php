@@ -15,7 +15,8 @@
 		  <!-- Google fonts -->
 		 <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
 		 <!-- my CSS -->
-		 <link rel="stylesheet" media="all" href="../stylesheets/staff.css">
+		 <link rel="stylesheet" media="all" href="<?php echo url_for('/styles/staff.css') ; ?>">
+
 	</head>
 
 	<body>
@@ -26,9 +27,9 @@
 		</div>
 
 
-		<nav>
-			<ul>
-				<li><a href="index.php">Menu</a></li>
+		<nav class="container-fluid">
+			<ul class="list-group">
+				<li class="list-group-item"><a href="<?php echo url_for('/staff/index.php'); ?>">Menu</a></li>
 			</ul>
 		</nav>
 

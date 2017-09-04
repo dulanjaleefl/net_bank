@@ -1,6 +1,6 @@
 <div class="container-fluid">
 			<footer>
-				&copy; <?php echo date('Y'); ?> 2017 Net Bank
+				&copy; <?php echo date('Y'); ?> Net Bank
 			</footer>
 </div>
 
