@@ -18,7 +18,7 @@
 		<h3>Pages</h3>
 
 		<div class="actions">
-		<a class="action" href="#">Create /new Subjects</a>
+		<a class="action" href="<?php echo url_for('/staff/pages/new.php'); ?>">Create new Pages</a>
 		</div>
 
 		<table class="list table">
@@ -41,7 +41,7 @@
 					<td><?php echo $pageArray['Visible'] == 1 ? 'true' : 'false';?></td>
 					<td><?php echo h($pageArray['Name']);?></td>
 					<td><a href="<?php echo url_for('/staff/pages/show.php?id='. h(u($pageArray['id']))); ?>">View</a></td>
-					<td><a href="#">Edit</a></td>
+					<td><a href="<?php echo url_for('/staff/pages/edit.php?id=' .h(u($pageArray['id']))); ?>">Edit</a></td>
 					<td><a href="#">Delete</a></td>
 				</tr>
 			</tbody>
