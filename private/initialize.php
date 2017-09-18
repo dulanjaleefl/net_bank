@@ -6,7 +6,7 @@ define("PROJECT_PATH",  dirname(PRIVATE_PATH));
 define("PUBLIC_PATH", PROJECT_PATH . '/public');
 define("SHARED_PATH", PRIVATE_PATH . '/shared');
 
-define("ROOT" , '//sandboxx.dev:8080/net_bank/public');
+define("ROOT" , '//url_to_the_root_folder_here');
 
 require_once('functions.php');
 require_once('database.php');
