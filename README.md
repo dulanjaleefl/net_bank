@@ -7,12 +7,16 @@
   -Private and public folders contain excercise project folders and files
   -README.md file contains detals about this repository
   -index.html containes the embed code for a DEMO vedio of Net Bank Excercise Project (Part 1)
-  -[Link for the DEMO](https://dulanjaleefl.github.io/net_bank/)
+  
 ```
+[Link for the DEMO](https://dulanjaleefl.github.io/net_bank/)
 
 ## Built with
 * php
 * mysql
 * html
 * css
+
+
+
 
