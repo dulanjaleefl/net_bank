@@ -1,33 +1,36 @@
-<?php require_once('../../../private/initialize.php'); ?>
+<?php 
+require_once('../../../private/initialize.php'); ?>
 
 <?php 
-	if(isset($_GET['id'])){
-	$id = $_GET['id'];
-} else{
-	$id = '';
+
+if(!isset($_GET['id'])){
+	redirect_to(url_for('/staff/pages/index.php'));
 }
 
-$page = isset($_POST['page']) ? $_POST['page'] : '';
-
-$menu_name = '';
-$position = '';
-$visible = ''; 
+$id = $_GET['id'] ;
 
 if(is_post_request()){
-	$page = isset($_POST['page']) ? $_POST['page'] : '';
-	$position = isset($_POST['position']) ? $_POST['position'] : '';
-	$visible = isset($_POST['visible']) ? $_POST['visible'] : '';
-
-	echo '<div class="container-fluid">';
-	echo "Form parameter<br />";
-	echo "Page name: " . $page . "<br/>";
-	echo "Position: " . $position . "<br/>";
-	echo "Visible: " . $visible . "<br/>";
-	echo "</div>";
-} else{
-	//
-}
-?>
+	// handle form values sent by new.php
+	$page = [];
+	$page['id'] = $id;
+	$page['subject_id'] = $_POST['subject_id'] ?? '';
+	$page['menu_name'] = $_POST['menu_name'] ?? '';
+	$page['position'] = $_POST['position'] ?? '';
+	$page['visible'] = $_POST['visible'] ?? '' ;
+	$page['content'] = $_POST['content'] ?? '';
+	
+	$result = update_page($page);
+	redirect_to(url_for('/staff/pages/show.php?id=' . $id));
+	
+	 }else {
+		$page = find_page_by_id($id);
+		
+		$page_set = find_all_pages();
+		$page_count = mysqli_num_rows($page_set);
+		mysqli_free_result($page_set);
+	}
+	
+	?>
 
 <?php $page_title = 'Edit Page';?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
@@ -40,41 +43,74 @@ if(is_post_request()){
   	<div class="row">
     <div class="col-6">
 
-    	<div class="page-new">
+    	<div class="page-edit">
 			<h3>Edit Page</h3>
 
 			<form action="<?php echo url_for('/staff/pages/edit.php?id=' . h(u($id))); ?>" method="post">
-		  		<div class="form-group">
-		    	<label>Page Name</label>
-		    <input type="text" name="page" value="<?php echo h($page); ?>" class="form-control" placeholder="Enter Page">
-		  		</div>
-
-		  		<div class="form-group">
-    			<label >position</label>
-				    <select name="position" class="form-control">
-				      <option value="1">1</option>
-				      <option value="2">2</option>
-				    </select>
-			  	</div>
-
-		  		<div class="form-check">
-    			<label class="form-check-label">
-    			<input type="hidden" name="visible" value="0">
-      			<input type="checkbox" name="visible" value="1" class="form-check-input">
-      			Visible
-    			</label>
-  				</div>
-
-		  		<div id="operation">
-  				<button type="submit" value="create subject" class="btn btn-primary">Edit Page</button>
-  				</div>
-		</form>
-
+		  		<dl>
+					<label>Subject</label>
+					<dd>
+						<select name="subject_id" class="form-control">
+          <?php
+            $subject_set = find_all_subjects();
+            while($subject = mysqli_fetch_assoc($subject_set)) {
+              echo "<option value=\"" . h($subject['id']) . "\"";
+              if($page["subject_id"] == $subject['id']) {
+                echo " selected";
+              }
+              echo ">" . h($subject['menu_name']) . "</option>";
+            }
+            mysqli_free_result($subject_set);
+          ?>
+          </select>
+					</dd>
+				</dl>
+                <dl>
+        <label>Menu Name</label>
+        <dd><input type="text" name="menu_name" class="form-control" value="<?php echo h($page['menu_name']); ?>" /></dd>
+      </dl>
+      <dl>
+                
+				<dl>
+					<label>Position</label>
+					<dd>
+						<select name="position" class="form-control" >
+						<?php
+							for($i=1; $i <= $page_count; $i++){
+								echo "<option value=\"{$i}\"";
+								if($page["position"] == $i){
+									echo " selected";
+								}
+								echo ">{$i}</option>";
+							}
+						?>
+						</select>
+					</dd>
+				</dl>
+				<dl>
+					<label>Visible</label>
+					<dd>
+						<input type="hidden" name="visible" value="0" />
+						<input type="checkbox" name="visible" value="1"<?php if($page['subject_id'] == "1"){
+						echo " checked"; } ?> />
+					</dd>
+				</dl>
+				<dl>
+					<label>Content</label>
+					<dd>
+						<textarea name="content" cols="60" rows="10"><?php echo h($page['content']); ?>
+						</textarea>
+					</dd>
+				</dl>
+				<div id="operartions">
+					<input class="btn btn-primary" type="submit" value="Edit Page" />
+				</div>
+			</form>
+		</div>
+		
 		</div>
 		</div>
 		</div>
 		</div>
-
-	</div>
-
-<?php include SHARED_PATH .  '/staff_footer.php';?>
+				
+		<?php include SHARED_PATH .  '/staff_footer.php';?>
