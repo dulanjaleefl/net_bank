@@ -15,6 +15,7 @@
 * mysql
 * html
 * css
+* javascript
 * bootstrap
 
 
